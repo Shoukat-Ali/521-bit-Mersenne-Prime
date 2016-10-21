@@ -111,9 +111,6 @@ int main(){
 		{
 			TMV_product(F, G, z);
 			TMV_product(z, G, F);
-			//TMV_product(F, z, G);
-			//TMV_product(G, z, F);
-			
 		}
 		end=rdtscp();
 		if((end - start)/2000 < min_ccycle)
