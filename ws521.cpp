@@ -348,42 +348,45 @@ void TMV_multiplication(type64 *X, type64 *Y, type64 *Z){
 	//mc++;
 
 	T1[0]=Y[0]-Y[3];		T1[1]=Y[1]-Y[4];		T1[2]=Y[2]-Y[5];		
-	type128 X10=(type128)X[3]*T1[0]+(type128)X[2]*T1[1]+(type128)X[1]*T1[2];
-	type128 X11 = (type128)X[4]*T1[0]+(type128)X[3]*T1[1]+(type128)X[2]*T1[2];
-	type128 X12 = (type128)X[5]*T1[0]+(type128)X[4]*T1[1]+(type128)X[3]*T1[2];
+	type128 X0=(type128)X[3]*T1[0]+(type128)X[2]*T1[1]+(type128)X[1]*T1[2];
+	type128 X1 = (type128)X[4]*T1[0]+(type128)X[3]*T1[1]+(type128)X[2]*T1[2];
+	type128 X2 = (type128)X[5]*T1[0]+(type128)X[4]*T1[1]+(type128)X[3]*T1[2];
 
 	T1[0]=Y[3]-Y[6];		T1[1]=Y[4]-Y[7];		T1[2]=Y[5]-Y[8];
-	type128 X16 = (type128)T1[3]*T1[0]+(type128)T1[4]*T1[1]+(type128)(2*X[4])*T1[2];
-	type128 X17 = (type128)c*T1[0]+(type128)T1[3]*T1[1]+(type128)T1[4]*T1[2];
-	type128 X18 = (type128)T5*T1[0]+(type128)c*T1[1]+(type128)T1[3]*T1[2];
+	type128 X6 = (type128)T1[3]*T1[0]+(type128)T1[4]*T1[1]+(type128)(2*X[4])*T1[2];
+	type128 X7 = (type128)c*T1[0]+(type128)T1[3]*T1[1]+(type128)T1[4]*T1[2];
+	type128 X8 = (type128)T5*T1[0]+(type128)c*T1[1]+(type128)T1[3]*T1[2];
 
 	T1[0]=Y[0]-Y[6];		T1[1]=Y[1]-Y[7];		T1[2]=Y[2]-Y[8];
-	type128 X13 = (type128)X[0]*T1[0]+(type128)T5*T1[1]+(type128)c*T1[2];
-	type128 X14 = (type128)X[1]*T1[0]+(type128)X[0]*T1[1]+(type128)T5*T1[2];
-	type128 X15 = (type128)X[2]*T1[0]+(type128)X[1]*T1[1]+(type128)X[0]*T1[2];
+	type128 X3 = (type128)X[0]*T1[0]+(type128)T5*T1[1]+(type128)c*T1[2];
+	type128 X4 = (type128)X[1]*T1[0]+(type128)X[0]*T1[1]+(type128)T5*T1[2];
+	type128 X5 = (type128)X[2]*T1[0]+(type128)X[1]*T1[1]+(type128)X[0]*T1[2];
 
-	T6[0]=X[4]+X[1];		T6[1]=X[5]+X[2];		T6[2]=X[6]+X[3];		T6[3]=X[7]+X[4];		T6[4]=X[8]+X[5];	
-	T1[0]=T6[0]+c;			T1[1]=T6[1]+T5;			T1[2]=T6[2]+X[0];		T1[3]=T6[3]+X[1];		T1[4]=T6[4]+X[2];
-	T6[0]+=T1[0];			T6[1]+=T1[1];			T6[2]+=T1[2];			T6[3]+=T1[3];			T6[4]+=T1[4];		
+	T6[0]=X[4]+X[1];		T6[1]=X[5]+X[2];		T6[2]=X[6]+X[3];
+	T6[3]=X[7]+X[4];		T6[4]=X[8]+X[5];	
+	T1[0]=T6[0]+c;			T1[1]=T6[1]+T5;			T1[2]=T6[2]+X[0];
+	T1[3]=T6[3]+X[1];		T1[4]=T6[4]+X[2];
+	T6[0]+=T1[0];			T6[1]+=T1[1];			T6[2]+=T1[2];
+	T6[3]+=T1[3];			T6[4]+=T1[4];		
 	T5=T1[2]+X[6];
 
-	type128 C = ((type128)T1[2]*Y[2])+((type128)T1[3]*Y[1])+((type128)T1[4]*Y[0]) - X12 - X15;
+	type128 C = ((type128)T1[2]*Y[2])+((type128)T1[3]*Y[1])+((type128)T1[4]*Y[0]) - X2 - X5;
 	c = ((type64)C)&bot57bits;
-	C = (((type128)T6[0]*Y[8])+((type128)T6[1]*Y[7])+((type128)T6[2]*Y[6]) + X13 + X16) + (C>>57);
+	C = (((type128)T6[0]*Y[8])+((type128)T6[1]*Y[7])+((type128)T6[2]*Y[6]) + X3 + X6) + (C>>57);
 	Z[0] = ((type64)C)&bot58bits;
-	C = (((type128)T6[1]*Y[8])+((type128)T6[2]*Y[7])+((type128)T6[3]*Y[6]) + X14 + X17) + (C>>58);
+	C = (((type128)T6[1]*Y[8])+((type128)T6[2]*Y[7])+((type128)T6[3]*Y[6]) + X4 + X7) + (C>>58);
 	Z[1] = ((type64)C)&bot58bits;	
-	C = (((type128)T6[2]*Y[8])+((type128)T6[3]*Y[7])+((type128)T6[4]*Y[6]) + X15 + X18) + (C>>58);
+	C = (((type128)T6[2]*Y[8])+((type128)T6[3]*Y[7])+((type128)T6[4]*Y[6]) + X5 + X8) + (C>>58);
 	Z[2] = ((type64)C)&bot58bits;
-	C = (((type128)T6[3]*Y[5])+((type128)T6[4]*Y[4])+((type128)T5*Y[3]) + X10 - X16) + (C>>58);
+	C = (((type128)T6[3]*Y[5])+((type128)T6[4]*Y[4])+((type128)T5*Y[3]) + X0 - X6) + (C>>58);
 	Z[3] = ((type64)C)&bot58bits;	
-	C = (((type128)T6[4]*Y[5])+((type128)T5*Y[4])+((type128)T1[0]*Y[3]) + X11 - X17) + (C>>58);
+	C = (((type128)T6[4]*Y[5])+((type128)T5*Y[4])+((type128)T1[0]*Y[3]) + X1 - X7) + (C>>58);
 	Z[4] = ((type64)C)&bot58bits;	
-	C = (((type128)T5*Y[5])+((type128)T1[0]*Y[4])+((type128)T1[1]*Y[3]) + X12 - X18) + (C>>58);
+	C = (((type128)T5*Y[5])+((type128)T1[0]*Y[4])+((type128)T1[1]*Y[3]) + X2 - X8) + (C>>58);
 	Z[5] = ((type64)C)&bot58bits;
-	C = (((type128)T1[0]*Y[2])+((type128)T1[1]*Y[1])+((type128)T1[2]*Y[0]) - X10 - X13) + (C>>58);
+	C = (((type128)T1[0]*Y[2])+((type128)T1[1]*Y[1])+((type128)T1[2]*Y[0]) - X0 - X3) + (C>>58);
 	Z[6] = ((type64)C)&bot58bits;
-	C = (((type128)T1[1]*Y[2])+((type128)T1[2]*Y[1])+((type128)T1[3]*Y[0]) - X11 - X14) + (C>>58);
+	C = (((type128)T1[1]*Y[2])+((type128)T1[2]*Y[1])+((type128)T1[3]*Y[0]) - X1 - X4) + (C>>58);
 	Z[7] = ((type64)C)&bot58bits; 
 	c += ((type64)(C>>58));
 	Z[8] = c&bot57bits;	
@@ -1057,7 +1060,7 @@ w[130]= 1;
 				min_ccycle= (aft-bef)/(lpz);	
 	}
 	cout<<"Window width :: "<<WINDOW<<endl<<"The minimum mean clock cycles count is :: "<<min_ccycle<<endl;
-	//output(&P);
+	output(&P);
 
 	return 0;
 }
